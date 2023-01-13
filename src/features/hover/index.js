@@ -14,13 +14,13 @@ function createHover(name, snippet, type) {
   if (isSet(snippet.instr_args) || isSet(snippet.instr_returns)) {
     text.push(
       "_asm_ :: __" +
-        name +
-        "__ (" +
-        snippet.instr_args.join(", ") +
-        ")" +
-        (isSet(snippet.instr_returns)
-          ? " : " + snippet.instr_returns.join(", ")
-          : "")
+      name +
+      "__ (" +
+      snippet.instr_args.join(", ") +
+      ")" +
+      (isSet(snippet.instr_returns)
+        ? " : " + snippet.instr_returns.join(", ")
+        : "")
     );
   }
 
@@ -75,7 +75,7 @@ function createHover(name, snippet, type) {
     text.push(
       "🌎 [more...](https://www.evm.codes/#" +
       opcode +
-        ")"
+      "?fork=merge)"
     );
   }
 
@@ -94,7 +94,9 @@ function provideHoverHandler(document, position, token, type) {
     return;
   }
 
-  const word = document.getText(range);
+  let word = document.getText(range);
+  // ignore case when comparing
+  word = word.toLowerCase();
 
   if (token.isCancellationRequested) {
     return token;
